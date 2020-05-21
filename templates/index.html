@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <!--PlotLy Heatmap-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="../static/Chart.HeatMap.S.js"></script>
+
+    <!--Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!--User scripts-->
+    <script src="../static/index.js"></script>
+
+
+</head>
+<body>
+<div class="mainBlock">
+    <div class="container">
+        <select id="years" class="yearsSelect">
+
+        </select>
+        <button class="button btn-primary" onclick="getCorrelMatrix()">Готово</button>
+        <div id="myDiv" style="width:800px;height:800px;"></div>
+
+    </div>
+    <div class="container">
+        <select id="yearsExcel" class="yearsSelect">
+            <!--Fills dynamically from the server when page is loaded-->
+        </select>
+        <button class="button btn-primary table-button" onclick="drawTableForMatrix()">Готово</button>
+        <table id="correlMatrixTable" class="table">
+            <thead class="thead-row thead-dark">
+            </thead>
+            <tbody class="tbody">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <select id="yearsBar" class="yearsSelect">
+            <!--Fills dynamically from the server when page is loaded-->
+        </select>
+        <select id="factorBarSelect" class="factorSelect">
+            <!--Fills dynamically from the server when page is loaded-->
+        </select>
+        <button class="button btn-primary" onclick="drawBarchart()">Готово</button>
+        <div id="barChart" style="width:700px;height:700px;">
+
+        </div>
+    </div>
+    <div class="container">
+        <select id="yearsLineFrom" class="yearsSelect">
+            <!--Fills dynamically from the server when page is loaded-->
+        </select>
+        <select id="yearsLineTo" class="yearsSelect">
+            <!--Fills dynamically from the server when page is loaded-->
+        </select>
+
+        <select id="factorLineSelect" class="factorSelect">
+            <!--Fills dynamically from the server when page is loaded-->
+        </select>
+        <select id="regionLineSelect" class="regionSelect">
+            <!--Fills dynamically from the server when page is loaded-->
+        </select>
+        <button class="button btn-primary" onclick="drawLineChart()">Готово</button>
+        <div id="lineChart" style="width:800px;height:800px;">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
