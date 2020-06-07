@@ -6,10 +6,7 @@ $(document).ready(function () {
     getFactors();
     getRegions();
     getYears();
-    //getCorrelMatrix();
-    //drawBarchart();
-    //drawLineChart();
-    //drawTableForMatrix();
+    getErrorsInTables();
 });
 
 function getFactors() {
@@ -23,7 +20,7 @@ function getFactors() {
 
     call.done(function (data) {
         $.each(data, function (key, elem) {
-            $('#factorLineSelect').append("<option value =" + elem + ">" + elem + "</option>");
+            $('.factorSelect').append("<option value =" + elem + ">" + elem + "</option>");
             factorsSelect.push(elem);
         });
     });
@@ -170,8 +167,12 @@ function drawBarchart() {
                 type: 'bar'
             }
         ];
+        let layout = {
+            title: 'Відношення факторів за рік між містами',
+            annotations: [],
+        };
 
-        Plotly.newPlot('barChart', datas);
+        Plotly.newPlot('barChart', datas, layout);
     });
     call.fail(function (jqXHR, textStatus, errorThrown) {
         console.log(jqXHR);
@@ -200,8 +201,12 @@ function drawLineChart() {
                 type: 'scatter'
             }
         ];
+        let layout = {
+            title: 'Динаміка зміни індикатора за період',
+            annotations: [],
+        };
 
-        Plotly.newPlot('lineChart', datas);
+        Plotly.newPlot('lineChart', datas, layout);
     });
     call.fail(function (jqXHR, textStatus, errorThrown) {
         console.log(jqXHR);
@@ -210,5 +215,20 @@ function drawLineChart() {
     });
 }
 
+function getErrorsInTables() {
+     let call = $.ajax({
+        type: 'GET',
+        contentType: 'application/json',
+        url: '/api/getFactorToEmptyYears',
+        data: 'json',
+        cache: false
+    });
+    call.done(function (data) {
+        $('.dataModal').append("<p><span class=\"badge badge-warning\">Відсутні значення індикаторів у таблицях:</span></p>");
+        $.each(data, function (key, elem) {
+            $('.dataModal').append("<p></p><span>"+key+" роки: "+ elem +"</span></p>");
+        });
+    })
+}
 
 

@@ -1,5 +1,6 @@
 from flask.json import JSONEncoder
 
+
 class ChartPoint:
     def __init__(self, x, y) -> None:
         super().__init__()

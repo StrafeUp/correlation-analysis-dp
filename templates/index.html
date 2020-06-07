@@ -7,6 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
             crossorigin="anonymous"></script>
+
     <!--PlotLy Heatmap-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -20,26 +21,118 @@
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
     <!--User scripts-->
     <script src="../static/index.js"></script>
 
+    <!--Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="../static/index.css">
+
+    <!--FontAwesome-->
+    <script src="https://kit.fontawesome.com/90628515f1.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
+<!-- Modal -->
+<div class="modal fade" id="indicatorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Умовні позначення</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body ident">
+                <p><span class="badge badge-primary">Позначення:</span></p>
+                <p><span>vrp - валовий регіональний продукт (ВРП)</span></p>
+                <p><span>kprip - кількість підприємств, що реалізували інноваційну продукцію</span></p>
+                <p>
+                    <span>kpripk - кількість промислових підприємств, що реалізували інноваційну продукцію за кордон</span>
+                </p>
+                <p><span>kpvi - кількість підприємств, що впроваджують інновації</span></p>
+                <p><span>kpzir - кількість підприємств, що займаються інноваційною діяльністю</span></p>
+                <p><span>kvtppp - кількість впроваджених інноваційних технологічних процесів на промислових підприємствах</span>
+                </p>
+                <p><span>ofid - обсяг фінансування інноваційної діяльності</span></p>
+                <p><span>orip - обсяг реалізованої інноваційної продукції</span></p>
+                <p><span>oripk - обсяг реалізованої інноваційної продукції за кордон</span></p>
+                <p><span>ovid - обсяг витрат на інноваційну діяльність</span></p>
+                <p><span>vivp - виробництво інноваційних видів продукції</span></p>
+                <p><span>zkp - загальна кількість підприємств</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="dataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dataModalLabel">Помилки</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body dataModal">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрити</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <ul class="nav justify-content-center nav-tabs" id="chartNav">
+        <li class="nav-item">
+            <a class="nav-link" href="#corrMatAnchor">Кореляційна матриця</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#tableMatAnchor">Таблиця даних</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#histogramAnchor">Гістограма індикаторів</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#linechartAnchor">Графік змін індикаторів</a>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-link" data-toggle="modal" data-target="#indicatorModal">Позначення індикаторів</button>
+        </li>
+        <li class="nav-item">
+            <button class="btn btn-link" data-toggle="modal" data-target="#dataModal">Відсутні дані</button>
+        </li>
+    </ul>
+</div>
 <div class="mainBlock">
+    <div class="container-clear" style="width: 100%; height: 50px;"></div>
+    <a class="anchor" id="corrMatAnchor"></a>
+    <div class="container"><h4><span>Кореляційна матриця</span></h4></div>
     <div class="container">
+        <span>Уведіть параметри <i class="fas fa-cogs"></i></span>
         <select id="years" class="yearsSelect">
 
         </select>
-        <button class="button btn-primary" onclick="getCorrelMatrix()">Готово</button>
-        <div id="myDiv" style="width:800px;height:800px;"></div>
+        <button class="button btn-primary" onclick="getCorrelMatrix()">Розрахувати</button>
+        <div id="myDiv" style="width:100%; height: 900px;"></div>
 
     </div>
+
+    <a class="anchor" id="tableMatAnchor"></a>
+    <div class="container"><h4><span>Таблиця даних по індикаторам за рік</span></h4></div>
     <div class="container">
+        <span>Уведіть параметри <i class="fas fa-cogs"></i></span>
         <select id="yearsExcel" class="yearsSelect">
             <!--Fills dynamically from the server when page is loaded-->
         </select>
-        <button class="button btn-primary table-button" onclick="drawTableForMatrix()">Готово</button>
+        <button class="button btn-primary table-button" onclick="drawTableForMatrix()">Розрахувати</button>
+
         <table id="correlMatrixTable" class="table">
             <thead class="thead-row thead-dark">
             </thead>
@@ -48,19 +141,27 @@
             </tbody>
         </table>
     </div>
+
+    <a class="anchor" id="histogramAnchor"></a>
+    <div class="container"><h4><span>Відношення факторів за рік між містами</span></h4></div>
     <div class="container">
+        <span>Уведіть параметри <i class="fas fa-cogs"></i></span>
         <select id="yearsBar" class="yearsSelect">
             <!--Fills dynamically from the server when page is loaded-->
         </select>
         <select id="factorBarSelect" class="factorSelect">
             <!--Fills dynamically from the server when page is loaded-->
         </select>
-        <button class="button btn-primary" onclick="drawBarchart()">Готово</button>
-        <div id="barChart" style="width:700px;height:700px;">
+        <button class="button btn-primary" onclick="drawBarchart()">Розрахувати</button>
+        <div id="barChart" style="width:100%;height:700px;">
 
         </div>
     </div>
+
+    <a class="anchor" id="linechartAnchor"></a>
+    <div class="container"><h4><span>Динаміка зміни індикатора за рік</span></h4></div>
     <div class="container">
+        <span>Уведіть параметри <i class="fas fa-cogs"></i></span>
         <select id="yearsLineFrom" class="yearsSelect">
             <!--Fills dynamically from the server when page is loaded-->
         </select>
@@ -74,11 +175,27 @@
         <select id="regionLineSelect" class="regionSelect">
             <!--Fills dynamically from the server when page is loaded-->
         </select>
-        <button class="button btn-primary" onclick="drawLineChart()">Готово</button>
-        <div id="lineChart" style="width:800px;height:800px;">
+        <button class="button btn-primary" onclick="drawLineChart()">Розрахувати</button>
+        <div id="lineChart" style="width:100%;height:800px;">
 
         </div>
     </div>
 </div>
+<script>$(document).ready(function () {
+    let stickyOffset = $('#chartNav').offset().top;
+
+    $(window).scroll(function () {
+        let sticky = $('#chartNav'),
+            scroll = $(window).scrollTop();
+
+        if (scroll >= stickyOffset) sticky.addClass('fixed');
+        else sticky.removeClass('fixed');
+    });
+});</script>
+<footer class="py-3 text-white-50">
+    <div class="container text-center">
+        <small>Copyright &copy; Kucherenko Valeriia 2020</small>
+    </div>
+</footer>
 </body>
 </html>

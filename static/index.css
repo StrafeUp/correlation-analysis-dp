@@ -1,0 +1,23 @@
+footer {
+    background-color: royalblue;
+    margin-top: 170px;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#chartNav {
+    z-index: 1000;
+    background-color: white;
+}
+
+.anchor {
+    display: block;
+    position: relative;
+    top: -60px;
+    visibility: hidden;
+}

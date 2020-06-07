@@ -1,13 +1,15 @@
 from pandas import *
 
 import constants
-from parser import Parser, get_factor_to_empty_years, years_set
+from data_parser import Parser, get_factor_to_empty_years, years_set
 
-data_dict = Parser().data
+
+def rescan_dat():
+    Parser().rescan_data()
 
 
 def get_factor_by_year(name, year):
-    factor: DataFrame = data_dict[name]
+    factor: DataFrame = Parser().data[name]
     return factor[year]
 
 
